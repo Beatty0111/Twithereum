@@ -11,13 +11,19 @@ contract MasterNode
         if(_user[msg.sender] == User[0]){
             _user[msg.sender] = new User("Temp Name: Fix this");   
         }
-        _user[msg.sender].createPost(title, data, timeStamp, _subList(subName));
+        tempPost = new Post(title, timeStamp, data, _subList(subName));
+        
+        //FIXME: ADD POST TO RECENT POSTS
     }
     
     function createSub(string name) public {
         if(_subList[name] == 0){                                 //Might be wrong
             _subList[name] = new Sub(name);
         }
+    }
+    
+    function getSub(string name) public constant returns(address sub){
+        return _subList[name];
     }
     
 }
@@ -31,11 +37,6 @@ contract User
     
     constructor(string name){
         _name = name;   
-    }
-    
-    function createPost(string title, string data, string timeStamp, string subName) public {
-        tempPost = new Post(title, data, timeStamp, subName);
-        _posts[_posts.length] = tempPost;
     }
     
     function getUsername() public constant returns(string name){
@@ -63,16 +64,19 @@ contract User
 //---------------------------------------------------------------------------------------------------
 contract Post
 {
-    string title;
+    string _title;
     string _data;
+    string _timeStamp;
     address _user;
     address _sub;
     address _lastComment;
     
-    constructor(string title, string data, address user, address sub){
+    constructor(string title, string time, string data, address sub){
         _data = data;
-        _user = user;
         _sub = sub;
+        _title = title;
+        _timeStamp = time;
+        _user = msg.sender;
     }
     
     function createComment(string data, address user) public {
@@ -82,6 +86,10 @@ contract Post
     
     function getLastComment() public constant returns(address commentAddress){
         return _lastComment;
+    }
+    
+    function getTime() public constant returns(string time){
+        return _timeStamp;
     }
 }
 
@@ -101,6 +109,10 @@ contract Sub
     
     function getPost(int index) public constant returns(address post){
         return _postList[index];
+    }
+    
+    function getName() public constant returns(string name){
+        return _name;
     }
 }
 
