@@ -1,0 +1,5 @@
+const Config = {
+
+	mockup: true;
+
+};
