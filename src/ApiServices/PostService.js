@@ -3,7 +3,19 @@ const PostService = {
 
 	},
 
-	createPost: () => {
+	/*
+		Post: 
+		{
+			title,
+			description,
+			timestamp
+		}
+	*/
+	createPost: (post) => {
+
+	},
+
+	getComments: (address) => {
 
 	}
 }
