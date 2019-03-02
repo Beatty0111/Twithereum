@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './enums.js';
+import './config.js';
 
 window.addEventListener('load', function() {
 	if (typeof window.ethereum !== 'undefined') {
