@@ -1,172 +1,106 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.4.0;
 
-//---------------------------------------------------------------------------------------------------
-contract MasterNode
-{
-    mapping (address => User) _user;
-    mapping (bytes32 => Sub) _subList;
-    Post _lastGPost;    //Last Post (Global)
+//---------------------------------------------------------------------------------------------
+contract MasterNode{
+    mapping (address => User) _userMap;
+    User[] _userList;
     
-    
-    function createPost(bytes32  title, bytes32  timeStamp, bytes32  data, bytes32  subName) public {
-        
-        if(_user[msg.sender] == User(0)){
-            _user[msg.sender] = new User("Temp Name: Fix this");
-        }
-        
-        _user[msg.sender].createPost(title, timeStamp, data, _subList[subName].getName(), _lastGPost);
-        _lastGPost = _user[msg.sender].getLastPost();
+    function createUser(string name) public{
+        _userMap[msg.sender] = new User(name);
+        _userList[_userList.length] = _userMap[msg.sender];
     }
     
-    function createSub(bytes32  name) public {
-        if(_subList[name] == Sub(0)){
-            _subList[name] = new Sub(name);
-        }
+    function getUser(address addr) public constant returns(User user){
+        return _userMap[addr];
     }
     
-    function getSub(bytes32  name) public constant returns(Sub sub){
-        return _subList[name];
-    }
-    
-    function getLastGPost() public constant returns(Post lastGPost){
-        return _lastGPost;
-    }
-    
-    function getUser(address wallet) public constant returns(User user){
-        return _user[wallet];
-    }
-}
-
-//---------------------------------------------------------------------------------------------------
-contract User
-{
-    Comment[] _comments;
-    Post[] _posts;
-    bytes32 _name;
-    
-    constructor (bytes32  name) public{
-        _name = name;   
-    }
-    
-    function getUsername() public constant returns(bytes32  name){
-        return _name;
-    }
-    
-    function getPostLength() public constant returns(uint length){
-        return _posts.length;
-    }
-    
-    function getPost(uint index) public constant returns(Post post){
-        return _posts[index];
-    }
-    
-    function getCommentLength() public constant returns(uint length){
-        return _comments.length;
-    }
-    
-    function getComment(uint index) public constant returns(Comment comment){
-        return _comments[index];
-    }
-    
-    function createPost(bytes32  title, bytes32  timeStamp, bytes32  data, bytes32  subName, Post lastGPost) public {
-        Post tempPost = new Post(title, timeStamp, data, subName, lastGPost);
-        _posts[_posts.length] = tempPost;
-    }
-    
-    function getLastPost() public constant returns(Post lastPost){
-        return _posts[_posts.length - 1];
+    function getUserByIndex(uint index) public constant returns(User user) {
+        return _userList[index];
     }
     
 }
 
-//---------------------------------------------------------------------------------------------------
-contract Post
-{
-    bytes32 _title;
-    bytes32 _data;
-    bytes32 _timeStamp;
-    address _user;
-    bytes32 _sub;
-    Comment _lastComment;
-    Post _lastGPost;
-    
-    constructor(bytes32  title, bytes32  time, bytes32  data, bytes32  subName, Post lastGPost) public{
-        _data = data;
-        _sub = subName;
-        _title = title;
-        _timeStamp = time;
-        _user = msg.sender;
-        _lastGPost = lastGPost;
-    }
-    
-    function createComment(bytes32  data, address user) public {
-        Comment tempComment = new Comment(data, user, _lastComment);
-        _lastComment = tempComment;
-    }
-    
-    function getLastComment() public constant returns(Comment commentAddress){
-        return _lastComment;
-    }
-    
-    function getTime() public constant returns(bytes32  time){
-        return _timeStamp;
-    }
-    
-    function getPreviousGPost() public constant returns(Post lastGPost){
-        return _lastGPost;
-    }
-}
-
-//---------------------------------------------------------------------------------------------------
-contract Sub
-{
-    bytes32 _name;
+//---------------------------------------------------------------------------------------------
+contract User{
+    string _name;
+    Post _lastPost;
+    User[] _followings;
+    mapping (address => bool) _followingMap;
     Post[] _postList;
     
-    constructor(bytes32  name) public{
+    constructor(string name) public { 
         _name = name;
     }
     
-    function getPostLength() public constant returns(uint length){
-        return _postList.length;
+    function follow(User user) public {
+        if(_followingMap[user] == false) {
+            _followings[_followings.length] = user;
+        }
     }
     
-    function getPost(uint index) public constant returns(Post post){
-        return _postList[index];
+    function unfollow(User user) public {
+        if(_followingMap[user]) {
+            for(uint i = 0; i < _followings.length; i++) {
+                if (_followings[i] == user) {
+                    _followings[i] = User(0);
+                    break;
+                }
+            }
+        }
     }
     
-    function getName() public constant returns(bytes32  name){
+    function getFollowing(uint index) public constant returns (User user) {
+        return _followings[index];
+    }
+    
+    function getName() public constant returns(string name){
         return _name;
+    }
+    
+    function createPost() public {
+        _postList[_postList.length] = new Post("abc");
+    }
+    
+    function getLastPost() public constant returns(Post lastPost){
+        return _lastPost;
     }
 }
 
-//---------------------------------------------------------------------------------------------------
-contract Comment
-{
-    bytes32 _data;
-    address _user;
-    Comment _lastComment;
+//---------------------------------------------------------------------------------------------
+contract Post{
+    string _data;
+    mapping (address => bool) _liked;
+    uint likes;
+    Post _previousPost;
     
-    constructor(bytes32  data, address user, Comment lastComment) public{
+    constructor(string data) public {
         _data = data;
-        _user = user;
-        _lastComment = lastComment;
+        likes = 0;
     }
     
-    function getPreviousComment() public constant returns(Comment commentAddress){
-        return _lastComment;
+    function getPreviousPost() public constant returns(Post post){
+        return _previousPost;
     }
     
-    function getCommentData() public constant returns(bytes32  bodyText){
+    function getLike() public constant returns(uint like){
+        return likes;
+    }
+    
+    function removeLike() public {
+        if(_liked[msg.sender]){
+            _liked[msg.sender] = false;
+            likes--;
+        }
+    }
+    
+    function Like() public {
+        if(!_liked[msg.sender])
+        _liked[msg.sender] = true;
+        likes++;
+    }
+    
+    function getData() public constant returns(string data){
         return _data;
     }
     
-    function getUser() public constant returns(address user){
-        return _user;
-    }
 }
-
-
-
-
-
