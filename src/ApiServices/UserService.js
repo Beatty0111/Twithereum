@@ -1,9 +1,35 @@
 import Config from './../config.js';
+import Global from './../Global.js';
 
 let UserService = {};
 
 if (Config.mockup == false) {
 	UserService = {
+
+		createUser: (username) => {
+
+			let data = "507ffba500000000000000000000000000000000000000000000000000000000" +
+					   "0000000000000000000000000000000000000000000000000000000000000020";
+			let strLen = username.length.toString(16);
+			let leftZeros = "";
+			for(let i = 0; i < (64 - strLen); i++) {
+				leftZeros += "0";
+			}
+			strLen = leftZeros + strLen;
+			data += strLen;
+			let str = Global.hexencode(username.substring(0, 32));
+			for(let i = 0; i < (64 - str.length); i++) {
+				str += "0";
+			}
+
+			data += str;
+
+			let param = [{
+				"from": Global.account,
+				"to": Config.masterNodeAddr,
+				"data": data
+			}];
+		},
 
 		getUsers: () => {
 			
@@ -28,6 +54,40 @@ if (Config.mockup == false) {
 } else {
 	// Mock Up
 	UserService = {
+		createUser: (username) => {
+
+			let data = "507ffba50000000000000000000000000000000000000000000000000000000000000020";
+			let strLen = username.length.toString(16);
+			console.log("strLen " + strLen);
+			let leftZeros = "";
+			for(let i = 0; i < (64 - strLen.length); i++) {
+				leftZeros += "0";
+			}
+			strLen = leftZeros + strLen;
+			data += strLen;
+			let str = Global.hexencode(username.substring(0, 32));
+			console.log("str " + str.length);
+			let strLenTwo = str.length;
+			for(let i = 0; i < (64 - strLenTwo); i++) {
+				str += "0";
+			}
+
+			data += str;
+
+			let param = [{
+				"from": Global.account,
+				"to": Config.masterNodeAddr,
+				"data": data
+			}];
+			console.log(data);
+
+			window.ethereum.sendAsync({
+				method: "eth_sendTransaction",
+				params: param
+			}, function (err, result) {
+
+			});
+		},
 		// EMITS Posts
 		getUsers: () => {
 			let data = [
