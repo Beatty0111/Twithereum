@@ -1,5 +1,6 @@
 import Config from './../config.js';
 import Global from './../Global.js';
+import PostService from './PostService.js';
 
 let UserService = {};
 
@@ -64,15 +65,40 @@ if (Config.mockup == false) {
 		},
 
 		getPosts: (user) => {
-			/*
-			let users = [];
+			let posts = [];
+			let lastAddr;
 
 			let param = [{
-				"from": user,
-				"data": 
-			}, "latest];
-			*/
+				"to": user,
+				"data": "0xc1eee7fd"
+			}, "latest"];
 
+			window.ethereum.send({
+				method: "eth_call",
+				params: param
+			}, function (err, result) {
+				lastAddr = result.result;
+				posts.push(PostService.getPost(lastAddr));
+					
+				posts.forEach( function (item, i) {
+					if(lastAddr != "0x") {
+						let param = [{
+							"to": lastAddr,
+							"data": "0x572bf5020"
+						}, "latest"];
+
+						window.ethereum.sendAsync({
+							method: "eth_call",
+							params: param
+						}, function (err, result) {
+							lastAddr = result.result;
+							posts.push(PostService.getPost(lastAddr));
+						});
+					}
+				});
+
+				return posts;
+			});
 		},
 
 		getFollowings: (user) => {
@@ -139,6 +165,43 @@ if (Config.mockup == false) {
 				params: param
 			}, function (err, result) {
 
+			});
+		},
+
+		getPostsT: (user) => {
+			let posts = [];
+			let lastAddr;
+
+			let param = [{
+				"to": user,
+				"data": "0xc1eee7fd"
+			}, "latest"];
+
+			window.ethereum.send({
+				method: "eth_call",
+				params: param
+			}, function (err, result) {
+				lastAddr = result.result;
+				posts.push(PostService.getPost(lastAddr));
+					
+				posts.forEach( function (item, i) {
+					if(lastAddr != "0x") {
+						let param = [{
+							"to": lastAddr,
+							"data": "0x572bf5020"
+						}, "latest"];
+
+						window.ethereum.sendAsync({
+							method: "eth_call",
+							params: param
+						}, function (err, result) {
+							lastAddr = result.result;
+							posts.push(PostService.getPost(lastAddr));
+						});
+					}
+				});
+
+				return posts;
 			});
 		},
 		// EMITS Posts

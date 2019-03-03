@@ -4,8 +4,24 @@ let PostService;
 
 if (Config.mockup == false) {
 	PostService = {
+		
 		getPost: (address) => {
-			
+			let param = [{
+				"to": address,
+				"data": "0x3bc5de30"
+			}, "latest"];
+
+			window.ethereum.sendAsync({
+				method: "eth_call",
+				params: param
+			}, function (err, result) {
+				let ret = {
+					username: "username",
+					data: result.result,
+					timestamp: "01-01-19 00:00:00"
+				};
+				return ret;
+			});
 		},
 		createPost: (data) => {
 
