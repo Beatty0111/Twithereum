@@ -1,11 +1,16 @@
+import Config from './../config.js';
+
 if (Config.mockup == false) {
 	const PostService = {
 		getPost: (address) => {
-
+			
 		},
 
+		//function createPost(bytes32 title, bytes32 timeStamp, bytes32 data, bytes32 subName) public 
 		createPost: (post) => {
+			let params = [{
 
+			}];
 		},
 
 		getComments: (address) => {

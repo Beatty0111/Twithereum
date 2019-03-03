@@ -1,3 +1,5 @@
+import Config from './../config.js';
+
 if (Config.mockup == false ) {
 	const SubService = {
 		getSub: (address) => {
