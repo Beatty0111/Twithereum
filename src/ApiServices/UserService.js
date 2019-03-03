@@ -8,17 +8,17 @@ if (Config.mockup == false) {
 
 		createUser: (username) => {
 
-			let data = "507ffba500000000000000000000000000000000000000000000000000000000" +
-					   "0000000000000000000000000000000000000000000000000000000000000020";
+			let data = "507ffba50000000000000000000000000000000000000000000000000000000000000020";
 			let strLen = username.length.toString(16);
 			let leftZeros = "";
-			for(let i = 0; i < (64 - strLen); i++) {
+			for(let i = 0; i < (64 - strLen.length); i++) {
 				leftZeros += "0";
 			}
 			strLen = leftZeros + strLen;
 			data += strLen;
 			let str = Global.hexencode(username.substring(0, 32));
-			for(let i = 0; i < (64 - str.length); i++) {
+			let strLenTwo = str.length;
+			for(let i = 0; i < (64 - strLenTwo); i++) {
 				str += "0";
 			}
 
@@ -29,6 +29,14 @@ if (Config.mockup == false) {
 				"to": Config.masterNodeAddr,
 				"data": data
 			}];
+
+			window.ethereum.sendAsync({
+				method: "eth_sendTransaction",
+				params: param
+			}, function (err, result) {
+				console.log(err);
+				console.log(result);
+			});
 		},
 
 		getUsers: () => {
