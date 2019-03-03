@@ -31,9 +31,6 @@ class App extends Component {
                     <NavLink exact to="/" className="nav-link">Home</NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/stuff" className="nav-link">Posts</NavLink>
-                  </li>
-                  <li className="nav-item">
                     <NavLink to="/contact" className="nav-link">Contact</NavLink>
                   </li>
                 </ul>
@@ -42,8 +39,7 @@ class App extends Component {
           </nav>
           <main className="container">
             <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route path="/stuff" component={Posts}/>
+              <Route exact path="/" component={Posts}/>
               <Route path="/contact" component={Contact}/>
               <Route component={NotFound} />
             </Switch>
