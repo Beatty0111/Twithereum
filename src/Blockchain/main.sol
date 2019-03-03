@@ -4,11 +4,11 @@ pragma solidity ^0.4.18;
 contract MasterNode
 {
     mapping (address => User) _user;
-    mapping (bytes32 => Sub) _subList;
+    mapping (string => Sub) _subList;
     Post _lastGPost;    //Last Post (Global)
     
     
-    function createPost(bytes32 title, bytes32 timeStamp, bytes32 data, bytes32 subName) public {
+    function createPost(string memory title, string memory timeStamp, string memory data, string memory subName) public {
         
         if(_user[msg.sender] == User(0)){
             _user[msg.sender] = new User("Temp Name: Fix this");
@@ -18,13 +18,13 @@ contract MasterNode
         _lastGPost = _user[msg.sender].getLastPost();
     }
     
-    function createSub(bytes32 name) public {
+    function createSub(string memory name) public {
         if(_subList[name] == Sub(0)){
             _subList[name] = new Sub(name);
         }
     }
     
-    function getSub(bytes32 name) public view returns(Sub sub){
+    function getSub(string memory name) public view returns(Sub sub){
         return _subList[name];
     }
     
@@ -32,6 +32,9 @@ contract MasterNode
         return _lastGPost;
     }
     
+    function getUser(address wallet) public view returns(User user){
+        return _user[wallet];
+    }
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -39,13 +42,13 @@ contract User
 {
     Comment[] _comments;
     Post[] _posts;
-    bytes32 _name;
+    string _name;
     
-    constructor(bytes32 name) public{
+    constructor(string memory name) public{
         _name = name;   
     }
     
-    function getUsername() public view returns(bytes32 name){
+    function getUsername() public view returns(string memory name){
         return _name;
     }
     
@@ -65,7 +68,7 @@ contract User
         return _comments[index];
     }
     
-    function createPost(bytes32 title, bytes32 timeStamp, bytes32 data, bytes32 subName, Post lastGPost) public {
+    function createPost(string memory title, string memory timeStamp, string memory data, string memory subName, Post lastGPost) public {
         Post tempPost = new Post(title, timeStamp, data, subName, lastGPost);
         _posts[_posts.length] = tempPost;
     }
@@ -79,15 +82,15 @@ contract User
 //---------------------------------------------------------------------------------------------------
 contract Post
 {
-    bytes32 _title;
-    bytes32 _data;
-    bytes32 _timeStamp;
+    string _title;
+    string _data;
+    string _timeStamp;
     address _user;
-    bytes32 _sub;
+    string _sub;
     Comment _lastComment;
     Post _lastGPost;
     
-    constructor(bytes32 title, bytes32 time, bytes32 data, bytes32 subName, Post lastGPost) public{
+    constructor(string memory title, string memory time, string memory data, string memory subName, Post lastGPost) public{
         _data = data;
         _sub = subName;
         _title = title;
@@ -96,7 +99,7 @@ contract Post
         _lastGPost = lastGPost;
     }
     
-    function createComment(bytes32 data, address user) public {
+    function createComment(string memory data, address user) public {
         Comment tempComment = new Comment(data, user, _lastComment);
         _lastComment = tempComment;
     }
@@ -105,7 +108,7 @@ contract Post
         return _lastComment;
     }
     
-    function getTime() public view returns(bytes32 time){
+    function getTime() public view returns(string memory time){
         return _timeStamp;
     }
     
@@ -117,10 +120,10 @@ contract Post
 //---------------------------------------------------------------------------------------------------
 contract Sub
 {
-    bytes32 _name;
+    string _name;
     Post[] _postList;
     
-    constructor(bytes32 name) public{
+    constructor(string memory name) public{
         _name = name;
     }
     
@@ -132,7 +135,7 @@ contract Sub
         return _postList[index];
     }
     
-    function getName() public view returns(bytes32 name){
+    function getName() public view returns(string memory name){
         return _name;
     }
 }
@@ -140,11 +143,11 @@ contract Sub
 //---------------------------------------------------------------------------------------------------
 contract Comment
 {
-    bytes32 _data;
+    string _data;
     address _user;
     Comment _lastComment;
     
-    constructor(bytes32 data, address user, Comment lastComment) public{
+    constructor(string memory data, address user, Comment lastComment) public{
         _data = data;
         _user = user;
         _lastComment = lastComment;
@@ -154,7 +157,7 @@ contract Comment
         return _lastComment;
     }
     
-    function getCommentData() public view returns(bytes32 bodyText){
+    function getCommentData() public view returns(string memory bodyText){
         return _data;
     }
     
