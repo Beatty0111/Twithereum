@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import homepage from "./reducers.js";
 import PropTypes from 'prop-types';
 import {getComments, getPosts} from './actions.js'
+
 class Home extends Component {
   state = {
     username: 'Some Person',
