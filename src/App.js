@@ -5,7 +5,7 @@ import {
   NavLink,
   HashRouter
 } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import Posts from "./components/Posts";
 import SubReddit from "./components/SubReddit";
 import './App.css';
@@ -16,7 +16,6 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
-          <h1 className="title">Some Name</h1>
           <ul className="header">
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/stuff">Posts</NavLink></li>
