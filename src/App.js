@@ -9,6 +9,7 @@ import {
 import Home from "./components/Home";
 import Posts from "./components/Posts";
 import Contact from "./components/Contact";
+import Tweet from "./components/Tweet";
 import NotFound from "./components/NotFound";
 import './App.scss';
 import './App.css';
@@ -32,6 +33,9 @@ class App extends Component {
                     <NavLink exact to="/" className="nav-link">Home</NavLink>
                   </li>
                   <li className="nav-item">
+                    <NavLink to="/tweet" className="nav-link">Tweet</NavLink>
+                  </li>
+                  <li className="nav-item">
                     <NavLink to="/contact" className="nav-link">Contact</NavLink>
                   </li>
                 </ul>
@@ -41,6 +45,7 @@ class App extends Component {
           <main className="container">
             <Switch>
               <Route exact path="/" component={Posts}/>
+              <Route path="/tweet" component={Tweet}/>
               <Route path="/contact" component={Contact}/>
               <Route component={NotFound} />
             </Switch>
