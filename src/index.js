@@ -3,6 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+<<<<<<< Updated upstream
+=======
+import Environment from './Enums/Environment.js';
+import Config from './config.js';
+import Global from './Global.js';
+
+window.addEventListener('load', function() {
+	if (typeof window.ethereum === 'undefined') {
+		Global.metamask = false;
+	} else {
+		Global.metamask = true;
+	}
+
+	if(Global.metamask || Config.environment == Environment.debug) {
+		ReactDOM.render(<App />, document.getElementById('root'));
+	}
+
+	getAccount();
+});
+
+async function getAccount() {
+	const accounts = await window.ethereum.enable();
+	const account = accounts[0];
+}
+>>>>>>> Stashed changes
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

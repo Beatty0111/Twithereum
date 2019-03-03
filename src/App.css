@@ -38,3 +38,17 @@ ul.header li a {
 .content li {
   margin-bottom: 10px;
 }
+
+button.dmButton {
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  color: rgb(9, 8, 51);;
+  background-color:rgb(255, 255, 255);
+  border-radius: 8px;
+  padding: 10px 24px;
+}
+
+button.dmButton:hover {
+  background-color: rgb(9, 8, 51);;
+  color: rgb(255, 255, 255);
+}
