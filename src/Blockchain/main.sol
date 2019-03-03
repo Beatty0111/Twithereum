@@ -3,20 +3,20 @@ pragma solidity ^0.4.0;
 //---------------------------------------------------------------------------------------------
 contract MasterNode{
     mapping (address => User) _userMap;
-    User[] _userList;
+    //User[] _userList;
     
     function createUser(string name) public{
         _userMap[msg.sender] = new User(name);
-        _userList[_userList.length] = _userMap[msg.sender];
+       // _userList[_userList.length] = _userMap[msg.sender];
     }
     
     function getUser(address addr) public constant returns(User user){
         return _userMap[addr];
     }
     
-    function getUserByIndex(uint index) public constant returns(User user) {
+    /*function getUserByIndex(uint index) public constant returns(User user) {
         return _userList[index];
-    }
+    }*/
     
 }
 
@@ -26,9 +26,8 @@ contract User{
     Post _lastPost;
     User[] _followings;
     mapping (address => bool) _followingMap;
-    Post[] _postList;
     
-    constructor(string name) public { 
+    function User(string name) public { 
         _name = name;
     }
     
@@ -57,8 +56,10 @@ contract User{
         return _name;
     }
     
-    function createPost() public {
-        _postList[_postList.length] = new Post("abc");
+    function createPost(string data) public {
+        Post tempPost = _lastPost;
+        _lastPost = new Post(data);
+        _lastPost.setPreviousPost(tempPost);
     }
     
     function getLastPost() public constant returns(Post lastPost){
@@ -73,9 +74,13 @@ contract Post{
     uint likes;
     Post _previousPost;
     
-    constructor(string data) public {
+    function Post(string data) public {
         _data = data;
         likes = 0;
+    }
+    
+    function setPreviousPost(Post newPost) public {
+        _previousPost = newPost;
     }
     
     function getPreviousPost() public constant returns(Post post){
