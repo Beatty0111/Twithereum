@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import homepage from "./Home/reducers.js";
 import PropTypes from 'prop-types';
 import {getComments, getPosts} from './Home/actions.js'
+
 class Posts extends Component {
   static propTypes = {
     username: PropTypes.string,
@@ -21,13 +22,11 @@ class Posts extends Component {
     return (
       <div>
         <h2>Posts</h2>
-        <p>
           <ul>
             {this.props.posts.map(function(post,index){
-              return <li key={index}>{post}</li>
+              return <li className="posts" key={index}>{post}</li>
             })}
           </ul>
-        </p>
       </div>
     );
   }
