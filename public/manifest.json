@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Twithereum",
+  "name": "Microblogging by blockchain. God is dead and we killed him.",
   "icons": [
     {
       "src": "favicon.ico",

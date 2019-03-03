@@ -1,3 +1,12 @@
 @import "~bootswatch/dist/darkly/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/darkly/bootswatch";
+
+.tweet-post {
+  // .card-title {
+  //   color: $dark;
+  // }
+  .card-text {
+    font-size: 30px;
+  }
+}

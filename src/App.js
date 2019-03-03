@@ -3,12 +3,15 @@ import React, { Component } from 'react';
 import {
   Route,
   NavLink,
-  HashRouter
+  HashRouter,
+  Switch
 } from "react-router-dom";
-import Home from "./components/Home/Home";
+import Home from "./components/Home";
 import Posts from "./components/Posts";
-import SubReddit from "./components/SubReddit";
+import Contact from "./components/Contact";
+import NotFound from "./components/NotFound";
 import './App.scss';
+import './App.css';
 
 
 class App extends Component {
@@ -16,54 +19,35 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
-          <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-            <div class="container">
-              <NavLink to="/" class="navbar-brand">Twithereum</NavLink>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+          <nav className="navbar navbar-expand-lg navbar-light bg-primary">
+            <div className="container">
+              <NavLink to="/" className="navbar-brand">Twithereum</NavLink>
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
               </button>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                    <NavLink to="/" class="nav-link">Home</NavLink>
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
+                  <li className="nav-item">
+                    <NavLink exact to="/" className="nav-link">Home</NavLink>
                   </li>
-                  <li class="nav-item">
-                    <NavLink to="/stuff" class="nav-link">Posts</NavLink>
-                  </li>
-                  <li class="nav-item">
-                    <NavLink to="/contact" class="nav-link">Contact</NavLink>
+                  <li className="nav-item">
+                    <NavLink to="/contact" className="nav-link">Contact</NavLink>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
-          <main class="container">
-            <Route path="/" component={Home}/>
-            <Route path="/stuff" component={Posts}/>
-            <Route path="/contact" component={SubReddit}/>
+          <main className="container">
+            <Switch>
+              <Route exact path="/" component={Posts}/>
+              <Route path="/contact" component={Contact}/>
+              <Route component={NotFound} />
+            </Switch>
           </main>
         </div>
       </HashRouter>
     );
-    {/*return (
-      <div className="App">
-        <header className="App-header">
-          {/*<img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-    </div>
-    );*/}
   }
 }
 
