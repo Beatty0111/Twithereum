@@ -39,11 +39,39 @@ if (Config.mockup == false) {
 			});
 		},
 
+		// user: wallet Address
+		getUser: (user) => {
+			let data = "0x6f77926b";
+			data += "000000000000000000000000";
+			data += user.substring(2, user.length);
+			console.log(data);
+			let param = [{
+				"to": Config.masterNodeAddr,
+				"data": data
+			}, "latest"];
+
+			window.ethereum.sendAsync({
+				method: "eth_call",
+				params: param
+			}, function (err, result) {
+				return result.result;
+			});
+		},
+
 		getUsers: () => {
-			
+			return;
+			//NO IMPLEMENTATIOn
 		},
 
 		getPosts: (user) => {
+			/*
+			let users = [];
+
+			let param = [{
+				"from": user,
+				"data": 
+			}, "latest];
+			*/
 
 		},
 
@@ -62,6 +90,23 @@ if (Config.mockup == false) {
 } else {
 	// Mock Up
 	UserService = {
+		getUser: (user) => {
+			let data = "0x6f77926b";
+			data += "000000000000000000000000";
+			data += user.substring(2, user.length);
+			console.log(data);
+			let param = [{
+				"to": Config.masterNodeAddr,
+				"data": data
+			}, "latest"];
+
+			window.ethereum.sendAsync({
+				method: "eth_call",
+				params: param
+			}, function (err, result) {
+				return result.result;
+			});
+		},
 		createUser: (username) => {
 
 			let data = "507ffba50000000000000000000000000000000000000000000000000000000000000020";
