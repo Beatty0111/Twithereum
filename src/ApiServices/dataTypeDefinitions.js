@@ -2,33 +2,15 @@
 
 Post
 {
-	upvoteNum,
-	title,
-	description,
+	data,
 	authorUser,
-	comments, (addresses)
-	timestamp,
-	fromSub (address)
-}
-
-Comment
-{
-	upvoteNum,
-	comment,
-	authorUser, (address)
 	timestamp
 }
 
 User
 {
 	username,
+	address,
 	posts
 }
-
-Sub
-{
-	name
-	posts (address)
-}
-
 */
