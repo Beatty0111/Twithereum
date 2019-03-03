@@ -56,9 +56,9 @@ contract User{
         return _name;
     }
     
-    function createPost(string data) public {
+    function createPost(string data, string time) public {
         Post tempPost = _lastPost;
-        _lastPost = new Post(data);
+        _lastPost = new Post(data, time);
         _lastPost.setPreviousPost(tempPost);
     }
     
@@ -71,12 +71,14 @@ contract User{
 contract Post{
     string _data;
     mapping (address => bool) _liked;
-    uint likes;
+    uint _likes;
     Post _previousPost;
+    string _timeStamp;
     
-    function Post(string data) public {
+    function Post(string data, string time) public {
         _data = data;
-        likes = 0;
+        _timeStamp = time;
+        _likes = 0;
     }
     
     function setPreviousPost(Post newPost) public {
@@ -88,20 +90,20 @@ contract Post{
     }
     
     function getLike() public constant returns(uint like){
-        return likes;
+        return _likes;
     }
     
     function removeLike() public {
         if(_liked[msg.sender]){
             _liked[msg.sender] = false;
-            likes--;
+            _likes--;
         }
     }
     
     function Like() public {
         if(!_liked[msg.sender])
         _liked[msg.sender] = true;
-        likes++;
+        _likes++;
     }
     
     function getData() public constant returns(string data){
