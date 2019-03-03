@@ -1,22 +1,36 @@
 import React, { Component } from "react";
- 
-class Stuff extends Component {
+import homepage from "./Home/reducers.js";
+import PropTypes from 'prop-types';
+import {getComments, getPosts} from './Home/actions.js'
+class Posts extends Component {
+  static propTypes = {
+    username: PropTypes.string,
+    comments: PropTypes.arrayOf(PropTypes.string),
+    posts: PropTypes.arrayOf(PropTypes.string),
+    handleGetComments: PropTypes.func.isRequired,
+    handleGetPosts: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    username: 'Person 1',
+    comments: ['Hello World', 'Hackathon', 'Im to drunk to taste this chicken'],
+    posts: ['sdfknskdnf', 'kjsdfnkjsdfn'],
+  }
+
   render() {
     return (
       <div>
-        <h2>STUFF</h2>
-        <p>Mauris sem velit, vehicula eget sodales vitae,
-        rhoncus eget sapien:</p>
-        <ol>
-          <li>Nulla pulvinar diam</li>
-          <li>Facilisis bibendum</li>
-          <li>Vestibulum vulputate</li>
-          <li>Eget erat</li>
-          <li>Id porttitor</li>
-        </ol>
+        <h2>Posts</h2>
+        <p>
+          <ul>
+            {this.props.posts.map(function(post,index){
+              return <li key={index}>{post}</li>
+            })}
+          </ul>
+        </p>
       </div>
     );
   }
 }
  
-export default Stuff;
+export default Posts;
