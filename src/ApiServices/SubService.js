@@ -1,3 +1,5 @@
+import Config from './../config.js';
+
 if (Config.mockup == false ) {
 	const SubService = {
 		getSub: (address) => {
@@ -8,6 +10,7 @@ if (Config.mockup == false ) {
 
 		}
 	}
+	export default SubService;
 } else {
 	const SubService = {
 		getSub: (address) => {
@@ -25,4 +28,5 @@ if (Config.mockup == false ) {
 			return false;
 		}
 	}
+	export default SubService;
 }
