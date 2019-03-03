@@ -1,12 +1,9 @@
+import Environment from './Enums/Environment.js';
+
 const Config = {
-
 	masterNodeAddr: "0x0000000000000000000000000000000000000000",
-	mockup: true;
-	environment: Environment.debug;
+	mockup: true,
+	environment: Environment.debug
 };
 
-let Global = {
-
-};
-
-
+export default Config;

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import './enums.js';
-import './config.js';
+import Environment from './Enums/Environment.js';
+import Config from './config.js';
+import Global from './Global.js';
 
 window.addEventListener('load', function() {
 	if (typeof window.ethereum !== 'undefined') {
@@ -12,11 +13,19 @@ window.addEventListener('load', function() {
 	} else {
 		Global.metamask = true;
 	}
+
+	if(Global.metamask || Config.environment == Environment.debug) {
+		ReactDOM.render(<App />, document.getElementById('root'));
+	}
+
+	getAccount();
 });
 
-if(Global.metamask || Config.environment == Environment.debug) {
-	ReactDOM.render(<App />, document.getElementById('root'));
+async function getAccount() {
+	const accounts = await window.ethereum.enable();
+	const account = accounts[0];
 }
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
