@@ -1,7 +1,9 @@
 import Config from './../config.js';
 
+let UserService = {};
+
 if (Config.mockup == false) {
-	const UserService = {
+	UserService = {
 
 		getUsers: () => {
 			
@@ -23,10 +25,9 @@ if (Config.mockup == false) {
 
 		}
 	}
-	export default UserService;
 } else {
 	// Mock Up
-	const UserService = {
+	UserService = {
 		// EMITS Posts
 		getUsers: () => {
 			let data = [
@@ -51,9 +52,9 @@ if (Config.mockup == false) {
 		// EMITS Posts
 		getFollowings: (user) => {
 			let data = [
-				{username: "RealObama", "0x0000000000000000000000000000000000000000000000000000000000000060"},
-				{username: "Alex Jones", "0x000000000000000000000000000000000000000000000000000000000000006d"},
-				{username: "Joe Rojan", "0x000000000000000000000000000000000000000000000000000000000000ba23"}
+				{username: "RealObama", address: "0x0000000000000000000000000000000000000000000000000000000000000060"},
+				{username: "Alex Jones", address: "0x000000000000000000000000000000000000000000000000000000000000006d"},
+				{username: "Joe Rojan", address: "0x000000000000000000000000000000000000000000000000000000000000ba23"}
 			];
 
 			return data;
@@ -68,5 +69,5 @@ if (Config.mockup == false) {
 		}
 
 	}
-	export default UserService;
 }
+export default UserService;
