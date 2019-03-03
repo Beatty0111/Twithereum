@@ -1,21 +1,21 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.5.1;
 
 //---------------------------------------------------------------------------------------------------
 contract MasterNode
 {
     mapping (address => User) _user;
     mapping (bytes32 => Sub) _subList;
-    Post _lastGPost;    //Last Post (Global)
+    Post[100] _recentPosts;
     
     
-    function createPost(bytes32 title, bytes32 timeStamp, bytes32 data, bytes32 subName) public {
+    function createPost(bytes32 title, bytes32 data, bytes32 timeStamp, bytes32 subName) public {
         
         if(_user[msg.sender] == User(0)){
-            _user[msg.sender] = new User("Temp Name: Fix this");
+            _user[msg.sender] = new User("Temp Name: Fix this");   
         }
+        Post tempPost = new Post(title, timeStamp, data, _subList[subName]);
         
-        _user[msg.sender].createPost(title, timeStamp, data, _subList[subName].getName(), _lastGPost);
-        _lastGPost = _user[msg.sender].getLastPost();
+        //FIXME: ADD POST TO RECENT POSTS
     }
     
     function createSub(bytes32 name) public {
@@ -28,17 +28,13 @@ contract MasterNode
         return _subList[name];
     }
     
-    function getLastGPost() public view returns(Post lastGPost){
-        return _lastGPost;
-    }
-    
 }
 
 //---------------------------------------------------------------------------------------------------
 contract User
 {
-    Comment[] _comments;
-    Post[] _posts;
+    address[] _comments;
+    address[] _posts;
     bytes32 _name;
     
     constructor(bytes32 name) public{
@@ -53,7 +49,7 @@ contract User
         return _posts.length;
     }
     
-    function getPost(uint index) public view returns(Post post){
+    function getPost(uint index) public view returns(address post){
         return _posts[index];
     }
     
@@ -61,17 +57,8 @@ contract User
         return _comments.length;
     }
     
-    function getComment(uint index) public view returns(Comment comment){
+    function getComment(uint index) public view returns(address comment){
         return _comments[index];
-    }
-    
-    function createPost(bytes32 title, bytes32 timeStamp, bytes32 data, bytes32 subName, Post lastGPost) public {
-        Post tempPost = new Post(title, timeStamp, data, subName, lastGPost);
-        _posts[_posts.length] = tempPost;
-    }
-    
-    function getLastPost() public view returns(Post lastPost){
-        return _posts[_posts.length - 1];
     }
     
 }
@@ -83,17 +70,15 @@ contract Post
     bytes32 _data;
     bytes32 _timeStamp;
     address _user;
-    bytes32 _sub;
+    Sub _sub;
     Comment _lastComment;
-    Post _lastGPost;
     
-    constructor(bytes32 title, bytes32 time, bytes32 data, bytes32 subName, Post lastGPost) public{
+    constructor(bytes32 title, bytes32 time, bytes32 data, Sub sub) public{
         _data = data;
-        _sub = subName;
+        _sub = sub;
         _title = title;
         _timeStamp = time;
         _user = msg.sender;
-        _lastGPost = lastGPost;
     }
     
     function createComment(bytes32 data, address user) public {
@@ -107,10 +92,6 @@ contract Post
     
     function getTime() public view returns(bytes32 time){
         return _timeStamp;
-    }
-    
-    function getPreviousGPost() public view returns(Post lastGPost){
-        return _lastGPost;
     }
 }
 
