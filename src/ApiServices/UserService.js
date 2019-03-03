@@ -27,18 +27,46 @@ if (Config.mockup == false) {
 } else {
 	// Mock Up
 	const UserService = {
-		getInfo: (address) => {
-			let data = {
-				username: "pizzaMaster73",
-				posts: [
-					"0x7862cb5712fad171c68d03505fb8ce766ccfd78ecb638223d2f84b9077c1a3d6",
-					"0xa3cdf304a876cf4f966c6fe9bfeacfd9f802ddf39761797e006c1283c9a0806d",
-					"0x26f8e7fb137e0261e95ff4c349ef79c675f8d5b100d8de6fd1a27c58996ee884"
-				]
-			};
+		// EMITS Posts
+		getUsers: () => {
+			let data = [
+				{username: "chickenmaster", address: "000000000000000000000000000000000000000000000000000000000000000b"},
+				{username: "pizzaguy", address: "0x00000000000000000000000000000000000000000000000000000000000000a0"},
+				{username: "masterchef", address: "0x0000000000000000000000000000000000000000000000000000000000000060"}
+			]
 
 			return data;
+		},
+
+		getPosts: (user) => {
+			let data = [
+				{data: "i woke up and ate cereal for breakfast", authorUser: "Al Gore", timestamp: "08-12-17 14:22:39"},
+				{data: "Too much milkshakes...", authorUser: "Al Gore", timestamp: "08-23-18 16:12:23"},
+				{data: "My pant look bluer than usual today :)", authorUser: "Al Gore", timestamp: "09-02-18 17:53:16"}
+			];
+
+			return data;
+		},
+
+		// EMITS Posts
+		getFollowings: (user) => {
+			let data = [
+				{username: "RealObama", "0x0000000000000000000000000000000000000000000000000000000000000060"},
+				{username: "Alex Jones", "0x000000000000000000000000000000000000000000000000000000000000006d"},
+				{username: "Joe Rojan", "0x000000000000000000000000000000000000000000000000000000000000ba23"}
+			];
+
+			return data;
+		},
+
+		followUser: (user) => {
+			return;
+		},
+
+		unfollowUser: (user) => {
+			return;
 		}
+
 	}
 	export default UserService;
 }
