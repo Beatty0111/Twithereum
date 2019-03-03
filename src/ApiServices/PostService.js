@@ -24,7 +24,7 @@ if (Config.mockup == false) {
 			return data;
 		},
 
-		creatPost: (post) => {
+		createPost: (post) => {
 			return;
 		}
 	}
