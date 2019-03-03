@@ -1,14 +1,14 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.25;
 
 //---------------------------------------------------------------------------------------------------
 contract MasterNode
 {
     mapping (address => User) _user;
-    mapping (string => Sub) _subList;
+    mapping (bytes32 => Sub) _subList;
     Post _lastGPost;    //Last Post (Global)
     
     
-    function createPost(string memory title, string memory timeStamp, string memory data, string memory subName) public {
+    function createPost(bytes32  title, bytes32  timeStamp, bytes32  data, bytes32  subName) public {
         
         if(_user[msg.sender] == User(0)){
             _user[msg.sender] = new User("Temp Name: Fix this");
@@ -18,21 +18,21 @@ contract MasterNode
         _lastGPost = _user[msg.sender].getLastPost();
     }
     
-    function createSub(string memory name) public {
+    function createSub(bytes32  name) public {
         if(_subList[name] == Sub(0)){
             _subList[name] = new Sub(name);
         }
     }
     
-    function getSub(string memory name) public view returns(Sub sub){
+    function getSub(bytes32  name) public constant returns(Sub sub){
         return _subList[name];
     }
     
-    function getLastGPost() public view returns(Post lastGPost){
+    function getLastGPost() public constant returns(Post lastGPost){
         return _lastGPost;
     }
     
-    function getUser(address wallet) public view returns(User user){
+    function getUser(address wallet) public constant returns(User user){
         return _user[wallet];
     }
 }
@@ -42,38 +42,38 @@ contract User
 {
     Comment[] _comments;
     Post[] _posts;
-    string _name;
+    bytes32 _name;
     
-    constructor(string memory name) public{
+    constructor (bytes32  name) public{
         _name = name;   
     }
     
-    function getUsername() public view returns(string memory name){
+    function getUsername() public constant returns(bytes32  name){
         return _name;
     }
     
-    function getPostLength() public view returns(uint length){
+    function getPostLength() public constant returns(uint length){
         return _posts.length;
     }
     
-    function getPost(uint index) public view returns(Post post){
+    function getPost(uint index) public constant returns(Post post){
         return _posts[index];
     }
     
-    function getCommentLength() public view returns(uint length){
+    function getCommentLength() public constant returns(uint length){
         return _comments.length;
     }
     
-    function getComment(uint index) public view returns(Comment comment){
+    function getComment(uint index) public constant returns(Comment comment){
         return _comments[index];
     }
     
-    function createPost(string memory title, string memory timeStamp, string memory data, string memory subName, Post lastGPost) public {
+    function createPost(bytes32  title, bytes32  timeStamp, bytes32  data, bytes32  subName, Post lastGPost) public {
         Post tempPost = new Post(title, timeStamp, data, subName, lastGPost);
         _posts[_posts.length] = tempPost;
     }
     
-    function getLastPost() public view returns(Post lastPost){
+    function getLastPost() public constant returns(Post lastPost){
         return _posts[_posts.length - 1];
     }
     
@@ -82,15 +82,15 @@ contract User
 //---------------------------------------------------------------------------------------------------
 contract Post
 {
-    string _title;
-    string _data;
-    string _timeStamp;
+    bytes32 _title;
+    bytes32 _data;
+    bytes32 _timeStamp;
     address _user;
-    string _sub;
+    bytes32 _sub;
     Comment _lastComment;
     Post _lastGPost;
     
-    constructor(string memory title, string memory time, string memory data, string memory subName, Post lastGPost) public{
+    constructor(bytes32  title, bytes32  time, bytes32  data, bytes32  subName, Post lastGPost) public{
         _data = data;
         _sub = subName;
         _title = title;
@@ -99,20 +99,20 @@ contract Post
         _lastGPost = lastGPost;
     }
     
-    function createComment(string memory data, address user) public {
+    function createComment(bytes32  data, address user) public {
         Comment tempComment = new Comment(data, user, _lastComment);
         _lastComment = tempComment;
     }
     
-    function getLastComment() public view returns(Comment commentAddress){
+    function getLastComment() public constant returns(Comment commentAddress){
         return _lastComment;
     }
     
-    function getTime() public view returns(string memory time){
+    function getTime() public constant returns(bytes32  time){
         return _timeStamp;
     }
     
-    function getPreviousGPost() public view returns(Post lastGPost){
+    function getPreviousGPost() public constant returns(Post lastGPost){
         return _lastGPost;
     }
 }
@@ -120,22 +120,22 @@ contract Post
 //---------------------------------------------------------------------------------------------------
 contract Sub
 {
-    string _name;
+    bytes32 _name;
     Post[] _postList;
     
-    constructor(string memory name) public{
+    constructor(bytes32  name) public{
         _name = name;
     }
     
-    function getPostLength() public view returns(uint length){
+    function getPostLength() public constant returns(uint length){
         return _postList.length;
     }
     
-    function getPost(uint index) public view returns(Post post){
+    function getPost(uint index) public constant returns(Post post){
         return _postList[index];
     }
     
-    function getName() public view returns(string memory name){
+    function getName() public constant returns(bytes32  name){
         return _name;
     }
 }
@@ -143,25 +143,25 @@ contract Sub
 //---------------------------------------------------------------------------------------------------
 contract Comment
 {
-    string _data;
+    bytes32 _data;
     address _user;
     Comment _lastComment;
     
-    constructor(string memory data, address user, Comment lastComment) public{
+    constructor(bytes32  data, address user, Comment lastComment) public{
         _data = data;
         _user = user;
         _lastComment = lastComment;
     }
     
-    function getPreviousComment() public view returns(Comment commentAddress){
+    function getPreviousComment() public constant returns(Comment commentAddress){
         return _lastComment;
     }
     
-    function getCommentData() public view returns(string memory bodyText){
+    function getCommentData() public constant returns(bytes32  bodyText){
         return _data;
     }
     
-    function getUser() public view returns(address user){
+    function getUser() public constant returns(address user){
         return _user;
     }
 }
