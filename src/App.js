@@ -11,6 +11,7 @@ import Posts from "./components/Posts";
 import Contact from "./components/Contact";
 import NotFound from "./components/NotFound";
 import './App.scss';
+import './App.css';
 
 
 class App extends Component {

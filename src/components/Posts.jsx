@@ -16,10 +16,11 @@ class Posts extends React.Component {
   render() {
      return (
         <div>
-           <input type = "text" value = {this.state.data} 
+          <div>
+            <h5 className="formTitle">User Wallet Address</h5>
+            <input className="formBox" type = "text" value = {this.state.data}
               onChange = {this.updateState} />
-           <h4>{this.state.data}</h4>
-
+          </div>
            <PostsList search={this.state.data}/>
         </div>
      );
@@ -31,7 +32,6 @@ class PostsList extends Component {
   render() {
     return (
       <div>
-        <h2>Posts</h2>
           <ul>
             {UserService.getPosts(this.props.search).map(function(post,index){
               return (
