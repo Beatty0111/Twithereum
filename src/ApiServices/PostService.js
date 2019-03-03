@@ -17,6 +17,7 @@ if (Config.mockup == false) {
 
 		}
 	}
+	export default PostService;
 } else {
 	// Mock Up
 	const PostService = {
@@ -50,4 +51,5 @@ if (Config.mockup == false) {
 			return  data;
 		}
 	}
+	export default PostService;
 }

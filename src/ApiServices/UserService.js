@@ -7,6 +7,7 @@ if (Config.mockup == false) {
 			
 		},
 	}
+	export default UserService;
 } else {
 	// Mock Up
 	const UserService = {
@@ -23,4 +24,5 @@ if (Config.mockup == false) {
 			return data;
 		}
 	}
+	export default UserService;
 }

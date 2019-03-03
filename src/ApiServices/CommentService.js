@@ -1,9 +1,12 @@
+import Config from './../config.js';
+
 if (Config.mockup) {
 	const CommentService = {
 		getComment: (address) => {
 
 		}
 	}
+	export default CommentService;
 } else {
 	const CommentService = {
 		getComment: (address) => {
@@ -15,4 +18,5 @@ if (Config.mockup) {
 			};
 		}
 	}
+	export default CommentService;
 }
