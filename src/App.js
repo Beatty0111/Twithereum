@@ -8,7 +8,7 @@ import {
 import Home from "./components/Home/Home";
 import Posts from "./components/Posts";
 import SubReddit from "./components/SubReddit";
-import './App.css';
+import './App.scss';
 
 
 class App extends Component {
@@ -16,16 +16,33 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
-          <ul className="header">
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/stuff">Posts</NavLink></li>
-            <li><NavLink to="/contact">SubReddit</NavLink></li>
-          </ul>
-          <div className="content">
+          <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+            <div class="container">
+              <NavLink to="/" class="navbar-brand">Twithereum</NavLink>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <NavLink to="/" class="nav-link">Home</NavLink>
+                  </li>
+                  <li class="nav-item">
+                    <NavLink to="/stuff" class="nav-link">Posts</NavLink>
+                  </li>
+                  <li class="nav-item">
+                    <NavLink to="/contact" class="nav-link">Contact</NavLink>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <main class="container">
             <Route path="/" component={Home}/>
             <Route path="/stuff" component={Posts}/>
             <Route path="/contact" component={SubReddit}/>
-          </div>
+          </main>
         </div>
       </HashRouter>
     );
