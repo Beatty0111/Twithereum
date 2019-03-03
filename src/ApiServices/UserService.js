@@ -3,9 +3,25 @@ import Config from './../config.js';
 if (Config.mockup == false) {
 	const UserService = {
 
-		getUser: (address) => {
+		getUsers: () => {
 			
 		},
+
+		getPosts: (user) => {
+
+		},
+
+		getFollowings: (user) => {
+
+		},
+
+		followUser:(user) => {
+
+		},
+
+		unfollowUser: (user) => {
+
+		}
 	}
 	export default UserService;
 } else {
