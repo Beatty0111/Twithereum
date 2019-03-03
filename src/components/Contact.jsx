@@ -1,5 +1,5 @@
 import React, { Component } from "react";
- 
+
 class Contact extends Component {
   render() {
     return (
@@ -12,5 +12,5 @@ class Contact extends Component {
     );
   }
 }
- 
+
 export default Contact;

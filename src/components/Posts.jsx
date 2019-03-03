@@ -1,35 +1,30 @@
 import React, { Component } from "react";
-import homepage from "./Home/reducers.js";
-import PropTypes from 'prop-types';
-import {getComments, getPosts} from './Home/actions.js'
+import UserService from '../ApiServices/UserService.js'
 
 class Posts extends Component {
-  static propTypes = {
-    username: PropTypes.string,
-    comments: PropTypes.arrayOf(PropTypes.string),
-    posts: PropTypes.arrayOf(PropTypes.string),
-    handleGetComments: PropTypes.func.isRequired,
-    handleGetPosts: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    username: 'Person 1',
-    comments: ['Hello World', 'Hackathon', 'Im to drunk to taste this chicken'],
-    posts: ['sdfknskdnf', 'kjsdfnkjsdfn'],
-  }
 
   render() {
     return (
       <div>
         <h2>Posts</h2>
           <ul>
-            {this.props.posts.map(function(post,index){
-              return <li className="posts" key={index}>{post}</li>
+            {UserService.getPosts().map(function(post,index){
+              return (
+                <div className="card tweet-post">
+                  <div class="card-body">
+                    <h5 className="card-title">{post.authorUser}</h5>
+                    <p className="card-text">{post.data}</p>
+                  </div>
+                  <div className="card-body">
+                    <span className="text-muted">{post.timestamp}</span>
+                  </div>
+                </div>
+              );
             })}
           </ul>
       </div>
     );
   }
 }
- 
+
 export default Posts;
