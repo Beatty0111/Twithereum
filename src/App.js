@@ -7,10 +7,10 @@ import {
   Switch
 } from "react-router-dom";
 import Home from "./components/Home";
-import Posts from "./components/Posts";
-import Contact from "./components/Contact";
-import Tweet from "./components/Tweet";
-import NotFound from "./components/NotFound";
+import Posts from "./pages/Posts";
+import Contact from "./pages/Contact";
+import Tweet from "./pages/Tweet";
+import NotFound from "./pages/NotFound";
 import './App.scss';
 import './App.css';
 
