@@ -12,7 +12,7 @@ class LikeButton extends Component
 
     render(){
         <div className = "likeButton">
-            
+            <img src={"../Assets/images/like_btn.png"} />
         </div>
     }
 }
