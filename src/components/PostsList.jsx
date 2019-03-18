@@ -5,12 +5,17 @@ class PostsList extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = { address: props.address };
+		//this.state.posts = UserService.getPosts(this.state.address);
   }
   render() {
+	if( typeof(this.state.posts) == 'undefined' || this.state.posts.length <= 0) {
+		this.state.posts = [{data: "No tweets on this address."}]
+	}
+
     return (
       <div>
           <ul>
-            {UserService.getPosts(this.state.address).map(function(post,index){
+            {this.state.posts.map( function(post,index){
               return (
                 <div className="card tweet-post">
                   <div class="card-body">
