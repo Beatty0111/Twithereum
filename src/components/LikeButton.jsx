@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import likeBtnImg from "../Assets/images/like_btn.png";
+import "./LikeButton.scss"
 
 class LikeButton extends Component
 {
@@ -11,8 +13,12 @@ class LikeButton extends Component
     }
 
     render(){
-        <div className = "likeButton">
-            <img src={"../Assets/images/like_btn.png"} />
-        </div>
+		return (
+			<div className = "likeButton">
+				<img src={likeBtnImg} />
+			</div>
+		);
     }
 }
+
+export default LikeButton;

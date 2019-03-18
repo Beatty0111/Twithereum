@@ -10,6 +10,7 @@ class PostsList extends React.Component {
 			address: props.address,
 		};
 		//this.state.posts = UserService.getPosts(this.state.address);
+		this.showLike = false;
   }
   render() {
 	if( typeof(this.state.posts) == 'undefined' || this.state.posts.length <= 0) {
@@ -31,7 +32,9 @@ class PostsList extends React.Component {
                   <div className="card-body">
                     <span className="text-muted">{post.timestamp}</span>
                   </div>
-				  <LikeButton/>
+				  {this.showLike &&
+					  <LikeButton/>
+				  }
                 </div>
               );
             })}

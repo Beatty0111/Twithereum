@@ -1,0 +1,18 @@
+$likeBackground: blue;
+$likeHeight: 25px;
+$likeWidth: 25px;
+
+div.likeButton {
+	width: $likeWidth;
+	height: $likeHeight;
+
+	img {
+		-webkit-filter: grayscale(100%);
+		width: $likeWidth;
+		height: $likeHeight;
+	}
+
+	img:hover {
+		-webkit-filter: grayscale(0%);
+	}
+}

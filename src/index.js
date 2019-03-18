@@ -22,9 +22,11 @@ window.addEventListener('load', function() {
 });
 
 async function getAccount() {
-	const accounts = await window.ethereum.enable();
-	const account = accounts[0];
-	Global.account = account;
+	if(Global.metamask) {
+		const accounts = await window.ethereum.enable();
+		const account = accounts[0];
+		Global.account = account;
+	}
 }
 
 // If you want your app to work offline and load faster, you can change
