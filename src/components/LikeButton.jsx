@@ -15,7 +15,8 @@ class LikeButton extends Component
     render(){
 		return (
 			<div className = "likeButton">
-				<img src={likeBtnImg} />
+				<input type="checkbox" className="checkbox_like" />
+				<div className="like_heart"></div>
 			</div>
 		);
     }

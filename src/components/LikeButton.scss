@@ -5,14 +5,74 @@ $likeWidth: 25px;
 div.likeButton {
 	width: $likeWidth;
 	height: $likeHeight;
+	--size: 1em;
+	width: var(--size);
+	height: var(--size);
+	margin-top: auto;
+	position: relative;
+	padding-left: 1em;
+	margin-bottom: .75em;
+	transition-property: transform;
+	transition: transform 300ms cubic-bezier(.38,.5,.5,1.5);
 
-	img {
-		-webkit-filter: grayscale(100%);
-		width: $likeWidth;
-		height: $likeHeight;
+	.checkbox_like {
+		transform: rotate(45deg);
+		position: absolute;
+		appearance: none;
+		width: 155%;
+		height: 155%;
+		top: -60%;
+		left: 70%;
+		border-radius: 50% 0 0 0;
+		z-index: 100;
+		cursor: pointer;
+
 	}
 
-	img:hover {
-		-webkit-filter: grayscale(0%);
+	.checkbox_like:focus {
+		  outline: none;
 	}
+
+	.checkbox_like:checked ~ .heart__icon {
+		  background: red;
+	}
+
+	.like_heart {
+		transform: rotate(45deg);
+		width: var(--size);
+		height: var(--size);
+		background: pink;
+		position: absolute;
+		transition: background 125ms;
+	}
+
+	.like_heart::before,
+	.like_heart::after {
+		content: '';
+		display: block;
+		background: inherit;
+		width: var(--size);
+		height: var(--size);
+		border-radius: 50%;
+		position: absolute;
+	}
+
+	.like_heart::before {
+		  top: 0;
+		    left: -50%;
+	}
+
+	.like_heart::after {
+		  left: 0;
+		    top: -50%;
+	}
+
+	.checkbox_like:checked ~ .like_heart {
+		  background: red;
+	}
+
+}
+
+div.likeButton:hover {
+	transform: scale(1.2);
 }
