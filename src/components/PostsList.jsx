@@ -9,7 +9,7 @@ class PostsList extends React.Component {
 		{ 
 			address: props.address,
 		};
-		//this.state.posts = UserService.getPosts(this.state.address);
+		this.state.posts = UserService.getPosts(this.state.address);
   }
   render() {
 	if( typeof(this.state.posts) == 'undefined' || this.state.posts.length <= 0) {
