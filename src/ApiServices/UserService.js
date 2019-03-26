@@ -4,7 +4,7 @@ import PostService from './PostService.js';
 
 let UserService = {};
 
-if (Config.mockup == false) {
+if (Config.mockup === false) {
 	UserService = {
 
 		createUser: (username) => {
@@ -81,7 +81,7 @@ if (Config.mockup == false) {
 				posts.push(PostService.getPost(lastAddr));
 					
 				posts.forEach( function (item, i) {
-					if(lastAddr != "0x") {
+					if(lastAddr !== "0x") {
 						let param = [{
 							"to": lastAddr,
 							"data": "0x572bf5020"
@@ -185,7 +185,7 @@ if (Config.mockup == false) {
 				posts.push(PostService.getPost(lastAddr));
 					
 				posts.forEach( function (item, i) {
-					if(lastAddr != "0x") {
+					if(lastAddr !== "0x") {
 						let param = [{
 							"to": lastAddr,
 							"data": "0x572bf5020"

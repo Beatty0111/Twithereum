@@ -2,7 +2,7 @@ import Config from './../config.js';
 
 let PostService;
 
-if (Config.mockup == false) {
+if (Config.mockup === false) {
 	PostService = {
 		
 		getPost: (address) => {
