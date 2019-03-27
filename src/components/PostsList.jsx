@@ -1,6 +1,7 @@
 import React from 'react';
 import UserService from '../ApiServices/UserService.js';
 import LikeButton from './LikeButton.jsx';
+import './PostsLists.scss'
 
 class PostsList extends React.Component {
   constructor(props) {
@@ -31,7 +32,10 @@ class PostsList extends React.Component {
                   <div className="card-body">
                     <span className="text-muted">{post.timestamp}</span>
                   </div>
-				  <LikeButton/>
+				  <div className="tweetBtnBar">
+				    <LikeButton />
+				    <button className="retweetBtn" >Retweet</button>
+				  </div>
                 </div>
               );
             })}

@@ -1,17 +1,13 @@
 $likeBackground: blue;
-$likeHeight: 25px;
-$likeWidth: 25px;
+$size: 1em;
+
 
 div.likeButton {
-	width: $likeWidth;
-	height: $likeHeight;
-	--size: 1em;
-	width: var(--size);
-	height: var(--size);
+	width: $size * 2;
+	height: $size * 1.75;
 	margin-top: auto;
+	display: inline-block;
 	position: relative;
-	padding-left: 1em;
-	margin-bottom: .75em;
 	transition-property: transform;
 	transition: transform 300ms cubic-bezier(.38,.5,.5,1.5);
 
@@ -19,10 +15,10 @@ div.likeButton {
 		transform: rotate(45deg);
 		position: absolute;
 		appearance: none;
-		width: 155%;
-		height: 155%;
-		top: -60%;
-		left: 70%;
+		width: 80%;
+		height: 80%;
+		top: -$size + ($size / 1);
+		left: $size - ($size / 1.15);
 		border-radius: 50% 0 0 0;
 		z-index: 100;
 		cursor: pointer;
@@ -39,8 +35,10 @@ div.likeButton {
 
 	.like_heart {
 		transform: rotate(45deg);
-		width: var(--size);
-		height: var(--size);
+		top: $size - ($size / 1.75);
+		left: $size - ($size / 2);
+		width: $size;
+		height: $size;
 		background: pink;
 		position: absolute;
 		transition: background 125ms;
@@ -49,10 +47,10 @@ div.likeButton {
 	.like_heart::before,
 	.like_heart::after {
 		content: '';
-		display: block;
+		display: inline;
 		background: inherit;
-		width: var(--size);
-		height: var(--size);
+		width: $size;
+		height: $size;
 		border-radius: 50%;
 		position: absolute;
 	}
